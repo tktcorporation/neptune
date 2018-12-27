@@ -64,6 +64,10 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     erubi (1.6.1)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -181,11 +185,12 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  dotenv-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-  mysql2 (>= 0.3.18, < 0.5)
+  mysql2
   puma (~> 3.7)
-  rails (~> 5.1.2)
+  rails
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
@@ -196,4 +201,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.13.6
+   1.17.2
