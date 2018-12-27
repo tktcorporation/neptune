@@ -4,4 +4,7 @@ class Api::RecipesController < ApplicationController
     @recipes = Recipe.all.order(boosted: :desc)
   end
 
+  def show
+    @recipe = Recipe.includes(:recipe_ingredients, :instructions).find(params[:id])
+  end
 end

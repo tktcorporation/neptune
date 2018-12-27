@@ -15,6 +15,6 @@
 #  index_ingredients_on_recipe_id  (recipe_id)
 #
 
-class Ingredient < ApplicationRecord
+class RecipeIngredient < ApplicationRecord
   belongs_to :recipe
 end
