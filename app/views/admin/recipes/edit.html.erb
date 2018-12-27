@@ -1,0 +1,108 @@
+<div class="columns is-centered">
+  <div class="column is-8">
+    <div class="columns is-centered" id="app">
+      <div class="column is-12">
+        <img v-bind:src="thumbnail_url">
+        <%= form_with model: @recipe, url: admin_recipe_path(@recipe.id), html: { class: "form" } do |f| %>
+          <label class="label">タイトル</label>
+          <div class="field">
+            <div class="control">
+              <%= f.text_field :title, class: "input" %>
+            </div>
+          </div>
+
+          <label class="label">導入文</label>
+          <div class="field">
+            <div class="control">
+              <%= f.text_field :introduction, class: "input" %>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-half">
+              <label class="label">サムネイルurl</label>
+              <div class="field">
+                <div class="control">
+                  <%= f.text_field :thumbnail_url, "v-model"=>"thumbnail_url", class: "input", id: "thumbnail_url" %>
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <label class="label">ビデオurl</label>
+              <div class="field">
+                <div class="control">
+                  <%= f.text_field :video_url, class: "input"%>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-one-third">
+              <label class="label">?人前</label>
+                <div class="field">
+                  <div class="control">
+                    <%= f.text_field :servings, class: "input" %>
+                  </div>
+                </div>
+            </div>
+            <div class="column is-one-third">
+              <label class="label">塩分量</label>
+              <div class="field">
+                <div class="control">
+                  <%= f.number_field :salt, class: "input" %>
+                </div>
+              </div>
+            </div>
+            <div class="column is-one-third">
+              <label class="label">カロリー</label>
+                <div class="field">
+                  <div class="control">
+                    <%= f.number_field :calorie, class: "input" %>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-half">
+              <label class="label">食材名</label>
+            </div>
+            <div class="column is-half">
+              <label class="label">分量</label>
+            </div>
+          </div>
+          <div class="recipe-ingredients-list">
+            <% @recipe.recipe_ingredients.each do |ingredient| %>
+              <%= f.fields_for "recipe_ingredient[]", ingredient do |af| %>
+                <div class="columns recipe-ingredients-item" id="<%= ingredient.id %>" >
+                  <div class="column is-half">
+                    <div class="field">
+                      <div class="control">
+                        <%= af.text_field :name, class: "input" %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column is-half">
+                    <div class="field">
+                      <div class="control">
+                        <%= af.text_field :quantity_and_unit, class: "input" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+
+          <input type="hidden" v-for="(recipe_ingredient_id, index) in recipe_ingredient_ids" v-bind:name="['recipe[recipe_ingredient_ids][' + index + ']']" v-bind:value="recipe_ingredient_id">
+
+          <%= f.submit "更新", class: "button is-info" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'sortable' %>
+<%= javascript_pack_tag 'admin_recipes_edit' %>

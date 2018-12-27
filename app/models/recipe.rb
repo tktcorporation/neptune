@@ -20,8 +20,8 @@
 #
 
 class Recipe < ApplicationRecord
-  has_many :recipe_ingredients, dependent: :destroy
-  has_many :instructions, dependent: :destroy
+  has_many :recipe_ingredients, -> { order(sort_order: :asc) }, dependent: :destroy
+  has_many :instructions, -> { order(sort_order: :asc) }, dependent: :destroy
 
   def get_kcalorie
     ingredients = self.ingredients
