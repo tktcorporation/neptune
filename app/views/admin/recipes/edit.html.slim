@@ -43,6 +43,7 @@
           label.label レシピを公開する
           label.checkbox
             = f.check_box :publish, {:checked => @recipe.publish ? true : false}
+          hr
           .columns
             .column.is-1
             .column.is-6
@@ -64,6 +65,7 @@
                     .field
                       .control
                         = af.text_field :quantity_and_unit, class: "input"
+          hr
           .columns
             .column.is-1
             .column.is-11
@@ -81,12 +83,13 @@
                         = af.text_field :body, class: "input"
           input type="hidden" v-bind:name=("['recipe[recipe_ingredient_ids][' + index + ']']") v-bind:value="recipe_ingredient_id" v-for="(recipe_ingredient_id, index) in recipe_ingredient_ids"
           input type="hidden" v-bind:name=("['recipe[instruction_ids][' + index + ']']") v-bind:value="instruction_id" v-for="(instruction_id, index) in instruction_ids"
+          hr
           .columns
             .column.is-2
               = button_tag "<i class='fas fa-sync-alt'></i>".html_safe, type: "submit", class: "button is-warning", style: "padding: 0 1.5em"
             .column.is-2
-              = link_to "<i class='far fa-trash-alt'></i>".html_safe, admin_recipe_path(@recipe), method: :delete, data: { confirm: '削除しますか？' }, class: "button", style: "padding: 0 1.5em"
-            .column.is-2
-              = link_to "Back", admin_recipes_path, class: "button", style: "padding: 0 1.5em"
+              = link_to "Back", admin_recipes_path, class: "button"
+            .column.is-8
+              = link_to "<i class='far fa-trash-alt'></i>".html_safe, admin_recipe_path(@recipe), method: :delete, data: { confirm: '削除しますか？' }, class: "button", style: "padding: 0 1.5em; float: right;"
 = javascript_include_tag 'sortable'
 = javascript_pack_tag 'admin_recipes_edit'

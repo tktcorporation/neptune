@@ -43,6 +43,7 @@
           label.label レシピを公開する
           label.checkbox
             = f.check_box :publish, {:checked => @recipe.publish ? true : false}
+          hr
           .columns
             .column.is-half
               label.label 食材名
@@ -64,7 +65,6 @@
               .column.is-1
                 .button v-on:click="delete_ingredient(index)"
                   i.far.fa-trash-alt
-          hr
           .columns
               .column.is-5
                 .field
@@ -79,6 +79,7 @@
                   .control
                     .button v-on:click="create_recipe_ingredient"
                       span ＋
+          hr
           .label 手順
           .recipe-instructions-list
             .columns.recipe-instructions-item v-for="(instruction, index) in instructions"
@@ -92,7 +93,6 @@
               .column.is-1
                 .button v-on:click="delete_instruction(index)"
                   i.far.fa-trash-alt
-          hr
           .columns
             .column.is-10
               .field
@@ -105,6 +105,7 @@
                     span ＋
 
           input type="hidden" v-bind:name=("['recipe[recipe_ingredient_ids][' + index + ']']") v-bind:value="recipe_ingredient_id" v-for="(recipe_ingredient_id, index) in recipe_ingredient_ids"
+          hr
           .columns
             .column.is-2
               = f.submit "作成", class: "button is-warning"
