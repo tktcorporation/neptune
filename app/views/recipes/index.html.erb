@@ -1,0 +1,15 @@
+<div class="columns is-centered">
+  <div class="column is-9">
+    <div id="app">
+      <div class="columns is-multiline">
+        <div class="column is-one-third" v-for="recipe in recipes">
+          <img v-bind:src="recipe.thumbnail_url">
+          <h2 class="is-size-4 has-text-weight-semibold">{{ recipe.title }}<h2>
+          <p>{{ recipe.introduction }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_pack_tag 'recipes_index' %>
