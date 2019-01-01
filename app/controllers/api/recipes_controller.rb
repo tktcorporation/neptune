@@ -1,6 +1,7 @@
 class Api::RecipesController < ApplicationController
 
   def index
+    #ユーザー認証を行って、ユーザーがday0のときだけ「order(boosted: :desc)」とする？
     @recipes = Recipe.where(publish: true).order(boosted: :desc)
   end
 
