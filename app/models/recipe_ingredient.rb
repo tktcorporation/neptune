@@ -20,6 +20,16 @@ class RecipeIngredient < ApplicationRecord
   belongs_to :ingredient
   belongs_to :unit
 
+  validates :name, presence: true, lt4bytes: true
+  validates :recipe_id, numericality: { greater_than_or_equal_to: 0, only_integer: true}
+  validates :ingredient_id, numericality: { greater_than_or_equal_to: 0, only_integer: true, allow_blank: true}#allow_blank: trueは一時的
+  validates :unit_id, numericality: { greater_than_or_equal_to: 0, only_integer: true, allow_blank: true}#allow_blank: trueは一時的
+  validates :quantity, numericality: { greater_than_or_equal_to: 0, allow_blank: true}#allow_blank: trueは一時的
+  validates :quantity_and_unit, presence: true, lt4bytes: true
+  validates :density, numericality: { greater_than_or_equal_to: 0, allow_blank: true}
+  validates :calorie, numericality: { greater_than_or_equal_to: 0, allow_blank: true}
+  validates :sort_order, numericality: { greater_than_or_equal_to: 0, only_integer: true}
+
   def get_salt_and_calorie
     ingredient = self.ingredient
     gram = 0
