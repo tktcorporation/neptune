@@ -23,6 +23,16 @@ class Recipe < ApplicationRecord
   has_many :recipe_ingredients, -> { order(sort_order: :asc) }, dependent: :destroy
   has_many :instructions, -> { order(sort_order: :asc) }, dependent: :destroy
 
+  validates :title, presence: true, lt4bytes: true
+  validates :video_url, presence: true, format: /\A#{URI::regexp(%w(https))}\z/
+  validates :thumbnail_url, presence: true, format: /\A#{URI::regexp(%w(https))}\z/
+  validates :servings, numericality: { greater_than_or_equal_to: 1, only_integer: true}
+  validates :salt, numericality: { greater_than_or_equal_to: 0, allow_blank: true}
+  validates :calorie, numericality: { greater_than_or_equal_to: 0, allow_blank: true}
+  validates :introduction, presence: true, lt4bytes: true
+  validates :boosted, presence: true, inclusion: { in: [true, false] }
+  validates :publish, presence: true, inclusion: { in: [true, false] }
+
   def update_with_relations(recipe_params, recipe_ingredients_params, recipe_ingredient_ids_params, instructions_params, instruction_ids_params)
     #ActiveRecord::Base.transaction do
       self.update_attributes!(recipe_params)

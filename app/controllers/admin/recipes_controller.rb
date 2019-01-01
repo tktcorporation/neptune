@@ -38,7 +38,7 @@ class Admin::RecipesController < ApplicationController
 
   private
     def recipe_params
-      params.require(:recipe).permit(:title, :video_url, :thumbnail_url, :servings, :introduction, :publish)
+      params.require(:recipe).permit(:title, :video_url, :thumbnail_url, :servings, :introduction, :publish, :boosted)
     end
     def update_recipe_ingredients_params
       params.require(:recipe).permit(recipe_ingredient: [:name, :quantity_and_unit])[:recipe_ingredient]
