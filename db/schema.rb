@@ -46,13 +46,14 @@ ActiveRecord::Schema.define(version: 20181226174943) do
     t.string "title", null: false
     t.string "video_url", null: false
     t.string "thumbnail_url", null: false
-    t.string "servings", null: false
+    t.integer "servings", null: false
     t.float "salt", limit: 24
     t.float "calorie", limit: 24
     t.text "introduction"
     t.boolean "boosted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "publish", default: false
     t.index ["boosted"], name: "index_recipes_on_boosted"
   end
 
