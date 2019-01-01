@@ -14,3 +14,54 @@
  *= require_self
  */
 @import "bulma";
+.flash {
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  display: inline-block;
+  z-index: 100;
+  background-color: #ffdd57;
+  border-radius: 10px;
+  padding: 10px 20px;
+  -webkit-animation: fade-in-out 3s ease 2s forwards;
+  animation: fade-out 3s ease 2s forwards;
+}
+@-webkit-keyframes fade-out {
+  50% {visibility: visible; opacity: 1;}
+  100% {visibility: hidden; opacity: 0;}
+}
+
+@keyframes fade-out {
+  50% {visibility: visible; opacity: 1;}
+  100% {visibility: hidden; opacity: 0;}
+}
+span.page.current {
+  background-color: #eee;
+  border-radius: 50%;
+  border-color: #dbdbdb;
+  color: #363636;
+  min-width: 2.25em;
+  font-size: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  justify-content: center;
+  margin: 0.25rem;
+  text-align: center;
+  -webkit-appearance: none;
+  align-items: center;
+  border: 1px solid transparent;
+  box-shadow: none;
+  display: inline-flex;
+  height: 2.25em;
+  line-height: 1.5;
+  vertical-align: top;
+}
+.pagination {
+    justify-content: center;
+}
+.link-card {
+  color: #4a4a4a;
+}
+.link-card:hover {
+  opacity: 0.8;
+}
