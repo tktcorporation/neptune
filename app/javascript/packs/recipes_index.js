@@ -16,7 +16,7 @@ var app = new Vue({
       axios.get('/api/recipes').then((response) => {
         var recipe_num = 6;
         if (response.data.recipes.length < recipe_num) {
-          recipe_num = esponse.data.recipes.length;
+          recipe_num = response.data.recipes.length;
         }
         for(var i = 0; i < recipe_num; i++) {
           this.recipes.push(response.data.recipes[i]);
