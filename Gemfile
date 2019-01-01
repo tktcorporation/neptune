@@ -22,6 +22,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'dotenv-rails'
 gem 'webpacker'
 gem "bulma-rails"
+gem 'slim-rails'
+gem 'kaminari'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
