@@ -17,8 +17,9 @@ ActiveRecord::Schema.define(version: 20181226174943) do
     t.float "salt", limit: 24
     t.float "calorie", limit: 24
     t.float "density", limit: 24
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "g_per_unit"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
   end
 
   create_table "instructions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -34,11 +35,14 @@ ActiveRecord::Schema.define(version: 20181226174943) do
     t.bigint "recipe_id", null: false
     t.integer "sort_order", null: false
     t.string "name", null: false
+    t.integer "ingredient_id"
     t.string "quantity_and_unit", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.float "density", limit: 24
     t.float "calorie", limit: 24
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "unit_id"
+    t.float "quantity", limit: 24
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
   end
 
@@ -55,6 +59,12 @@ ActiveRecord::Schema.define(version: 20181226174943) do
     t.datetime "updated_at", null: false
     t.boolean "publish", default: false
     t.index ["boosted"], name: "index_recipes_on_boosted"
+  end
+
+  create_table "units", id: :integer, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", limit: 100
+    t.boolean "position", comment: "0が先頭数字、1が後ろに数字"
+    t.float "volume", limit: 24
   end
 
 end
