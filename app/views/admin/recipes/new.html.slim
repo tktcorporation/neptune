@@ -40,9 +40,15 @@
               .field
                 .control
                   = f.number_field :calorie, class: "input", placeholder: "(例)300"
-          label.label レシピを公開する
-          label.checkbox
-            = f.check_box :publish, {:checked => @recipe.publish ? true : false}
+          .columns
+            .column.is-4
+              label.label ブースト
+              label.checkbox
+                = f.check_box :boosted
+            .column.is-4
+              label.label レシピを公開する
+              label.checkbox
+                = f.check_box :publish
           hr
           .columns
             .column.is-half
