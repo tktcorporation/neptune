@@ -17,4 +17,19 @@
 
 class RecipeIngredient < ApplicationRecord
   belongs_to :recipe
+  belongs_to :ingredient
+  belongs_to :unit
+
+  def get_salt_and_calorie
+    ingredient = self.ingredient
+    gram = 0
+    if g_per_unit = ingredient.g_per_unit
+      gram = self.quantity * g_per_unit
+    elsif density = ingredient.density
+      gram = self.quantity * self.unit.volume / 100 * density
+    end
+    salt = gram / 100 * ingredient.salt
+    calorie = gram / 100 * ingredient.calorie
+    {salt: salt, calorie: calorie }
+  end
 end

@@ -45,15 +45,21 @@ class Recipe < ApplicationRecord
     #return false
   end
 
-  def get_kcalorie
-    ingredients = self.ingredients
-    ingredients.each do |ingredient|
-
+  def get_salt_and_calorie_per_person
+    salt = 0
+    calorie = 0
+    recipe_ingredients = self.recipe_ingredients.includes(:ingredient, :unit)
+    recipe_ingredients.each do |recipe_ingredient|
+      hash = recipe_ingredient.get_salt_and_calorie
+      salt += hash[:salt]
+      calorie += hash[:calorie]
     end
+    salt /= self.servings
+    calorie /= self.servings
+    {salt: salt, calorie: calorie}
   end
 
   def self.create_with_relations(recipe_params, recipe_ingredients_params, instructions_params)
-    p recipe_ingredients_params
     recipe = self.new(recipe_params)
     ActiveRecord::Base.transaction do
       recipe.save!
@@ -72,21 +78,5 @@ class Recipe < ApplicationRecord
   rescue => e
     p e.message
     return false
-  end
-
-  #下書き
-  def self.get_gram(amount_text)
-    case amount_text
-    when /^(.+)g$/
-      $1.to_f
-    when /^(.+)パック$/
-      $1.to_f * 100
-    when /^少々$/
-      $1.to_f * 0.5
-    when /^大さじ(.+)$/
-      $1.to_f * 18.0
-    when /^小さじ(.+)$/
-      $1.to_f * 4
-    end
   end
 end
