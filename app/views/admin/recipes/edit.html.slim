@@ -1,0 +1,92 @@
+.columns.is-centered
+  .column.is-8
+    #app.columns.is-centered
+      .column.is-12
+        label.label.is-large レシピ編集
+        img v-bind:src="thumbnail_url" /
+        = form_with model: @recipe, url: admin_recipe_path(@recipe.id), html: { class: "form", onsubmit: "return false;" } do |f|
+          label.label タイトル
+          .field
+            .control
+              = f.text_field :title, class: "input"
+          label.label 導入文
+          .field
+            .control
+              = f.text_field :introduction, class: "input"
+          .columns
+            .column.is-half
+              label.label サムネイルurl
+              .field
+                .control
+                  = f.text_field :thumbnail_url, "v-model"=>"thumbnail_url", class: "input", id: "thumbnail_url"
+            .column.is-half
+              label.label ビデオurl
+              .field
+                .control
+                  = f.text_field :video_url, class: "input"
+          .columns
+            .column.is-one-third
+              label.label 分量(人前)
+              .field
+                .control
+                  = f.text_field :servings, class: "input"
+            .column.is-one-third
+              label.label 塩分量(g)
+              .field
+                .control
+                  = f.number_field :salt, class: "input"
+            .column.is-one-third
+              label.label カロリー(kcal)
+              .field
+                .control
+                  = f.number_field :calorie, class: "input"
+          label.label レシピを公開する
+          label.checkbox
+            = f.check_box :publish, {:checked => @recipe.publish ? true : false}
+          .columns
+            .column.is-1
+            .column.is-6
+              label.label 食材名
+            .column.is-5
+              label.label 分量
+          .recipe-ingredients-list
+            - @recipe.recipe_ingredients.each do |ingredient|
+              = f.fields_for "recipe_ingredient[]", ingredient do |af|
+                .columns.recipe-ingredients-item id="#{ingredient.id}"
+                  .column.is-1
+                    .button style="border: initial;"
+                      i.fas.fa-grip-lines
+                  .column.is-6
+                    .field
+                      .control
+                        = af.text_field :name, class: "input"
+                  .column.is-5
+                    .field
+                      .control
+                        = af.text_field :quantity_and_unit, class: "input"
+          .columns
+            .column.is-1
+            .column.is-11
+              .label 手順
+          .recipe-instructions-list
+            - @recipe.instructions.each do |instruction|
+              = f.fields_for "instruction[]", instruction do |af|
+                .columns.recipe-instructions-item id="#{instruction.id}"
+                  .column.is-1
+                    .button style="border: initial;"
+                      i.fas.fa-grip-lines
+                  .column.is-11
+                    .field
+                      .control
+                        = af.text_field :body, class: "input"
+          input type="hidden" v-bind:name=("['recipe[recipe_ingredient_ids][' + index + ']']") v-bind:value="recipe_ingredient_id" v-for="(recipe_ingredient_id, index) in recipe_ingredient_ids"
+          input type="hidden" v-bind:name=("['recipe[instruction_ids][' + index + ']']") v-bind:value="instruction_id" v-for="(instruction_id, index) in instruction_ids"
+          .columns
+            .column.is-2
+              = button_tag "<i class='fas fa-sync-alt'></i>".html_safe, type: "submit", class: "button is-warning", style: "padding: 0 1.5em"
+            .column.is-2
+              = link_to "<i class='far fa-trash-alt'></i>".html_safe, admin_recipe_path(@recipe), method: :delete, data: { confirm: '削除しますか？' }, class: "button", style: "padding: 0 1.5em"
+            .column.is-2
+              = link_to "Back", admin_recipes_path, class: "button", style: "padding: 0 1.5em"
+= javascript_include_tag 'sortable'
+= javascript_pack_tag 'admin_recipes_edit'

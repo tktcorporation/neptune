@@ -1,0 +1,114 @@
+.columns.is-centered
+  .column.is-8
+    #app.columns.is-centered
+      .column.is-12
+        label.label.is-large レシピ作成
+        img v-bind:src="thumbnail_url" /
+        = form_with model: @recipe, url: admin_recipes_path, html: { class: "form", onsubmit: "return false;" } do |f|
+          label.label タイトル
+          .field
+            .control
+              = f.text_field :title, class: "input", placeholder: "(例)豚のしょうが焼き"
+          label.label 導入文
+          .field
+            .control
+              = f.text_field :introduction, class: "input", placeholder: "(例)おいしい豚のしょうが焼きです"
+          .columns
+            .column.is-half
+              label.label サムネイルurl
+              .field
+                .control
+                  = f.text_field :thumbnail_url, "v-model"=>"thumbnail_url", class: "input", id: "thumbnail_url"
+            .column.is-half
+              label.label ビデオurl
+              .field
+                .control
+                  = f.text_field :video_url, class: "input"
+          .columns
+            .column.is-one-third
+              label.label 分量(人前)
+              .field
+                .control
+                  = f.text_field :servings, class: "input", placeholder: "(例)2"
+            .column.is-one-third
+              label.label 塩分量(g)
+              .field
+                .control
+                  = f.number_field :salt, class: "input", placeholder: "(例)1"
+            .column.is-one-third
+              label.label カロリー(kcal)
+              .field
+                .control
+                  = f.number_field :calorie, class: "input", placeholder: "(例)300"
+          label.label レシピを公開する
+          label.checkbox
+            = f.check_box :publish, {:checked => @recipe.publish ? true : false}
+          .columns
+            .column.is-half
+              label.label 食材名
+            .column.is-half
+              label.label 分量
+          .recipe-ingredients-list
+            .columns.recipe-ingredients-item v-for="(recipe_ingredient, index) in recipe_ingredients"
+              .column.is-1
+                .button style="border: initial;"
+                  i.fas.fa-grip-lines
+              .column.is-5
+                .field
+                  .control
+                    input.input type="text" v-bind:value="recipe_ingredient.name" name="recipe[recipe_ingredient][][name]"
+              .column.is-4
+                .field
+                  .control
+                    input.input type="text" v-bind:value="recipe_ingredient.quantity_and_unit" name="recipe[recipe_ingredient][][quantity_and_unit]"
+              .column.is-1
+                .button v-on:click="delete_ingredient(index)"
+                  i.far.fa-trash-alt
+          hr
+          .columns
+              .column.is-5
+                .field
+                  .control
+                    input#new-name.input type="text" v-model="ingredient_name" placeholder="しょうゆ"
+              .column.is-5
+                .field
+                  .control
+                    input#new-quantity-and-unit.input type="text" v-model="ingredient_quantity_and_unit" placeholder="大さじ1"
+              .column.is-2
+                .field
+                  .control
+                    .button v-on:click="create_recipe_ingredient"
+                      span ＋
+          .label 手順
+          .recipe-instructions-list
+            .columns.recipe-instructions-item v-for="(instruction, index) in instructions"
+              .column.is-1
+                .button style="border: initial;"
+                  i.fas.fa-grip-lines
+              .column.is-9
+                .field
+                  .control
+                    input.input type="text" :value="instruction.body" name="recipe[instruction][][body]"
+              .column.is-1
+                .button v-on:click="delete_instruction(index)"
+                  i.far.fa-trash-alt
+          hr
+          .columns
+            .column.is-10
+              .field
+                .control
+                  input#new-instruction.input type="text" v-model="instruction_body" placeholder="材料を混ぜ合わせる"
+            .column.is-2
+              .field
+                .control
+                  .button v-on:click="create_instruction"
+                    span ＋
+
+          input type="hidden" v-bind:name=("['recipe[recipe_ingredient_ids][' + index + ']']") v-bind:value="recipe_ingredient_id" v-for="(recipe_ingredient_id, index) in recipe_ingredient_ids"
+          .columns
+            .column.is-2
+              = f.submit "作成", class: "button is-warning"
+            .column.is-2
+              = link_to "Back", admin_recipes_path, class: "button"
+= javascript_include_tag 'sortable'
+= javascript_pack_tag 'admin_recipes_new'

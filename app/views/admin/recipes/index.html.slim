@@ -1,0 +1,11 @@
+.columns.is-centered
+  .column.is-10
+    = link_to "レシピを追加", new_admin_recipe_path, class: "button is-warning"
+    .columns.is-multiline
+      - @recipes.each do |recipe|
+        = link_to edit_admin_recipe_path(recipe), class: "column is-one-third link-card" do
+          = image_tag recipe.thumbnail_url
+          h2.is-size-4.has-text-weight-semibold
+            = recipe.title
+          p = recipe.introduction
+= paginate @recipes
