@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(version: 2018_12_26_174943) do
     t.string "password_digest", default: "", null: false, collation: "utf8_bin"
     t.string "auth_token", collation: "utf8_bin"
     t.datetime "expiration_date"
-    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }
-    t.datetime "updated_at"
+    t.datetime "first_launched_at"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "email", unique: true
   end
 
 end
