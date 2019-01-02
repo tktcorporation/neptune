@@ -24,6 +24,7 @@ gem 'webpacker'
 gem "bulma-rails"
 gem 'slim-rails'
 gem 'kaminari'
+gem 'bcrypt'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
