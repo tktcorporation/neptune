@@ -89,4 +89,12 @@ class Recipe < ApplicationRecord
     p e.message
     return false
   end
+
+  def self.get_according_to_conditions(user)
+    if user.first_launched_at + 60*60*24 > Time.now
+      self.where(publish: true).order(boosted: :desc)
+    else
+      self.where(publish: true)
+    end
+  end
 end

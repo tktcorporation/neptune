@@ -48,6 +48,7 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
     arel (9.0.0)
+    bcrypt (3.1.12)
     bindex (0.5.0)
     builder (3.2.3)
     bulma-rails (0.7.2)
@@ -219,6 +220,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  bcrypt
   bulma-rails
   byebug
   capybara (~> 2.13)

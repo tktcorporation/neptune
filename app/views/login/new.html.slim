@@ -1,0 +1,21 @@
+.columns.is-centered
+  .column.is-10
+    .columns.is-centered
+      .column.is-6
+        #top-login-box.box.is-spaced
+          label.label.is-large ログイン
+          = form_with model: @user, url: cookies_path, method: :create, local: true, html: { class: "form" } do |f|
+            .field
+              .control.has-icons-left.has-icons-right
+                = f.text_field :email, placeholder: "メールアドレス", class: "input", id: "login-email", type: "email"
+                span.icon.is-small.is-left
+                  i.fas.fa-envelope
+                span.icon.is-small.is-right
+                  i.fas.fa-check
+            .field
+              .control.has-icons-left
+                = f.password_field :password,  placeholder: "パスワード", class: "input", id: "login-password"
+                span.icon.is-small.is-left
+                  i.fas.fa-lock
+            p.control
+              = f.submit "ログイン", class: "button is-warning"
