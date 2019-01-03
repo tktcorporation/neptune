@@ -13,9 +13,9 @@ var app = new Vue({
   },
   methods: {
     fetchRecipes: function () {
-      var auth_token = document.cookie.match(/auth_token=?([A-Za-z0-9]+)/)[1];
+      var auth_token = document.cookie.match(/auth_token=?([A-Za-z0-9]+)/);
       if (auth_token) {
-        axios.get('/api/recipes',{ params: { token: auth_token } }).then((response) => {
+        axios.get('/api/recipes',{ params: { token: auth_token[1] } }).then((response) => {
           if (response.data.status == 401) location.href = (window.location.origin + "/login");
           var recipe_num = 6;
           if (response.data.recipes.length < recipe_num) {
