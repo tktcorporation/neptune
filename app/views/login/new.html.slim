@@ -7,14 +7,14 @@
           = form_with model: @user, url: cookies_path, method: :create, local: true, html: { class: "form" } do |f|
             .field
               .control.has-icons-left.has-icons-right
-                = f.text_field :email, placeholder: "メールアドレス", class: "input", id: "login-email", type: "email"
+                = f.text_field :email, placeholder: "メールアドレス", class: "input", id: "login-email", type: "email", autocomplete: "email"
                 span.icon.is-small.is-left
                   i.fas.fa-envelope
                 span.icon.is-small.is-right
                   i.fas.fa-check
             .field
               .control.has-icons-left
-                = f.password_field :password,  placeholder: "パスワード", class: "input", id: "login-password"
+                = f.password_field :password,  placeholder: "パスワード", class: "input", id: "login-password", autocomplete: "current-password"
                 span.icon.is-small.is-left
                   i.fas.fa-lock
             p.control
