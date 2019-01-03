@@ -30,8 +30,8 @@ class Recipe < ApplicationRecord
   validates :salt, numericality: { greater_than_or_equal_to: 0, allow_blank: true}
   validates :calorie, numericality: { greater_than_or_equal_to: 0, allow_blank: true}
   validates :introduction, presence: true, lt4bytes: true
-  validates :boosted, presence: true, inclusion: { in: [true, false] }
-  validates :publish, presence: true, inclusion: { in: [true, false] }
+  validates :boosted, inclusion: { in: [true, false] }
+  validates :publish, inclusion: { in: [true, false] }
 
   def update_with_relations(recipe_params, recipe_ingredients_params, recipe_ingredient_ids_params, instructions_params, instruction_ids_params)
     #ActiveRecord::Base.transaction do
